@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ETS PWEB I</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="hasil" class="row"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', loadDoc);
+
+        function loadDoc(){
+            var url = "http://it-its.id/api/movies";
+            fetch(url).then(response => response.json())
+                .then(function(data){
+                    var template = data.map(post => {
+                        return `
+                        <div class="col-md-6 mb-4">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <h3 class="card-title">${post.Title}</h3>
+                                    <p class="card-text">${post.Plot}</p>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                    });
+
+                    document.getElementById("hasil").innerHTML = template.join('');
+                }).catch(function(e){
+                    alert("gagal mengambil data");
+                });
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
